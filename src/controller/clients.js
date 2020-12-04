@@ -16,7 +16,7 @@ class clientsLogic{
     }
 
     getClient(id) {
-        return clientDal.getClient(id)
+        return clientDal.getClientById(id)
     }
 
     updateClient(id, client) {

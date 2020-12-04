@@ -1,6 +1,6 @@
 require("express-async-errors")
 const express = require('express')
-const clientsLogic = new (require("../bl/clients"))()
+const clientsLogic = new (require("../controller/clients"))()
 const {permission_mw, auth_mw, equalId_mw} = require("../auth")
 
 

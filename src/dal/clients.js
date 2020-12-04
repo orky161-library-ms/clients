@@ -1,37 +1,36 @@
-const pool = require('../db')
+const {pool} = require('../config/index')
+const {addClientQuery,
+    getClientByIdQuery,
+    updateClientQuery,
+    getClientsQuery,
+    addBookQuery,
+    removeBookQuery,} = require("../query_builder/queries")
 
 class clientsDal {
     async addClient({name, email}) {
-        const client = await pool.query('INSERT INTO clients (name, email) VALUES (?,?)',
-            [name, email])
+        const client = await pool.query(addClientQuery, [name, email])
         return client[0].insertId
     }
 
-    async getClient(id) {
-        const client = await pool.query('SELECT * FROM clients WHERE id = (?)',
-            [id])
+    async getClientById(id) {
+        const client = await pool.query(getClientByIdQuery, [id])
         return client[0][0]
     }
 
     async updateClient(id, {name}) {
-        await pool.query('UPDATE clients SET ' +
-            'name = (?)' +
-            'WHERE id = (?)',
-            [name, id])
+        await pool.query(updateClientQuery, [name, id])
     }
 
     async getClients() {
-        const clients = await pool.query('SELECT * FROM clients')
+        const clients = await pool.query(getClientsQuery)
         return clients[0]
     }
 
     async addBook(clientId, bookId) {
-        await pool.query('INSERT INTO client_books (clientId, bookId) VALUES (?,?)',
-            [clientId, bookId])
+        await pool.query(addBookQuery, [clientId, bookId])
     }
     async removeBook(clientId, bookId) {
-        await pool.query('DELETE FROM authors WHERE clientId = (?), bookId = (?),',
-            [clientId, bookId])
+        await pool.query(removeBookQuery, [clientId, bookId])
     }
 }
 
