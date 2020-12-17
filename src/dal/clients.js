@@ -7,8 +7,8 @@ const {addClientQuery,
     removeBookQuery,} = require("../query_builder/queries")
 
 class clientsDal {
-    async addClient({name, email}) {
-        const client = await pool.query(addClientQuery, [name, email])
+    async addClient({name}) {
+        const client = await pool.query(addClientQuery, [name])
         return client[0].insertId
     }
 
