@@ -1,9 +1,10 @@
 const mysql = require('mysql2');
 const amqp = require('amqplib/callback_api');
-const {startPublisher} = require("../queue/rabbit");
+const {startPublisher} = require("../queue/rabbit/producers");
+const {channelConsume} = require("../queue/rabbit/consumers/index");
 
-(function createRabbitConnection (){
-    amqp.connect(`amqp://${process.env.RABBIT_URL}?heartbeat=60`, async (err, conn) => {
+function createRabbitConnection (){
+    amqp.connect(process.env.RABBIT_URL+ "?heartbeat=60", async (err, conn) => {
         if (err) {
             console.error("[AMQP]", err.message);
             return setTimeout(createRabbitConnection, 1500 + (Math.random() * 3000));
@@ -19,10 +20,10 @@ const {startPublisher} = require("../queue/rabbit");
         });
         console.log("[AMQP] connected");
         await startPublisher(conn)
+        await channelConsume(conn)
     });
-})()
+}
 
-// Create the connection pool. The pool-specific settings are the defaults
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -37,4 +38,5 @@ const promisePool = pool.promise();
 
 module.exports = {
     pool: promisePool,
+    createRabbitConnection
 }

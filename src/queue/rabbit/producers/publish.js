@@ -5,5 +5,5 @@ function sendEmail(email) {
 }
 
 module.exports = {
-    sendEmail
+    sendEmail,
 }

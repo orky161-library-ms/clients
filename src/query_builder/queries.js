@@ -1,7 +1,7 @@
 
 const checkConnectionQuery = "DO 1"
 
-const addClientQuery = 'INSERT INTO clients (name) VALUES (?)'
+const addClientQuery = 'INSERT INTO clients (name, authId) VALUES (?, ?)'
 const getClientByIdQuery = 'SELECT * FROM clients WHERE id = (?)'
 const updateClientQuery =  'UPDATE clients SET ' +
                            'name = (?) ' +

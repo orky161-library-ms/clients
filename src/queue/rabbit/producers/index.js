@@ -1,5 +1,5 @@
 let pubChannel = null;
-var offlinePubQueue = [];
+let offlinePubQueue = [];
 
 function startPublisher(conn) {
     conn.createConfirmChannel(function(err, ch) {
