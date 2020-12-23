@@ -16,7 +16,6 @@ async function channelConsume(conn){
 }
 
 function createClientQueue (conn, ch){
-    console.log(process.env.CREATE_CLIENT_QUEUE)
     ch.assertQueue(process.env.CREATE_CLIENT_QUEUE, { durable: true }, function(err, _ok) {
         if (closeOnErr(err)) return;
         ch.consume(process.env.CREATE_CLIENT_QUEUE, processMsg(conn, ch, createClientWorker), { noAck: false });
@@ -26,7 +25,6 @@ function createClientQueue (conn, ch){
 }
 
 function createClientWorker(msg, cb) {
-    console.log(msg.content.toString())
     require("../../../controller/clients").addClient(JSON.parse(msg.content.toString())).then(()=>{
         cb(true);
     })
