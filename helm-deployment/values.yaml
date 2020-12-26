@@ -2,3 +2,9 @@ name: clients
 port: 30003
 deployment:
   replicas: 3
+
+public:
+  - path: "/ping"
+    method: "GET"
+  - path: "/health"
+    method: "GET"
