@@ -11,11 +11,6 @@ router.get("/", [auth_mw, permission_mw("ADMIN")], (async (req, res) => {
     res.status(200).json({clients})
 }))
 
-router.post("/login", (async (req, res) => {
-    const token = await login(req.body)
-    res.status(200).json({token})
-}))
-
 router.get("/:id", [auth_mw, permission_mw("ADMIN"), equalId_mw()], (async (req, res) => {
     const client = await getClient(req.params.id)
     res.status(200).json({client})
