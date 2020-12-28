@@ -4,7 +4,7 @@ const {sendEmail, addAuth} = require("../queue/rabbit/producers/publish")
 
 async function addClient({name, email, client}) {
     await clientDal.addClient({name, authId: client})
-    await sendEmail(email)
+    await sendEmail(email, "Hello from Library.io, Thank you for sign-up")
 }
 
 async function login({email, password}) {

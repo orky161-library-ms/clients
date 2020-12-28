@@ -1,5 +1,5 @@
 const {pool} = require('../config/index')
-const {addClientQuery, getClientByIdQuery, updateClientQuery, getClientsQuery, addBookQuery, removeBookQuery,checkConnectionQuery} = require("../query_builder/queries")
+const {addClientQuery, getClientByIdQuery, updateClientQuery, getClientsQuery, addBookQuery, removeBookQuery,checkConnectionQuery} = require("./query_builder/queries")
 
 async function addClient({name, authId}) {
     const client = await pool.query(addClientQuery, [name, authId])
