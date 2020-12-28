@@ -6,5 +6,8 @@ deployment:
 public:
   - path: "/ping"
     method: "GET"
+    id: "GET_PING"
+
   - path: "/health"
     method: "GET"
+    id: "GET_HEALTH"
