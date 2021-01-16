@@ -18,6 +18,13 @@ function getClient(id) {
     return clientDal.getClientById(id)
 }
 
+async function getClientBooks(id) {
+    const res = await clientDal.getClientBooks(id)
+    const books = res.map(r => r.bookId)
+    const {data} = await axios.get(`http://${process.env.BOOK_SERVICE}/api/book?ids=${books}`)
+    return data.books
+}
+
 function updateClient(id, client) {
     return clientDal.updateClient(id, client)
 }
@@ -42,4 +49,5 @@ module.exports = {
     getClients,
     removeBook,
     addBook,
+    getClientBooks
 }

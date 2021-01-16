@@ -2,6 +2,8 @@ name: clients
 port: 30003
 deployment:
   replicas: 3
+  env:
+    BOOK_SERVICE: "books"
 
 public:
   - path: "/ping"

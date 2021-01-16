@@ -1,6 +1,6 @@
 require("express-async-errors")
 const express = require('express')
-const {login, getClient, updateClient, getClients, removeBook, addBook,} = require("../controller/clients")
+const {login, getClient, updateClient, getClients, removeBook, addBook, getClientBooks} = require("../controller/clients")
 const {libraryAuth} = require("../config/index")
 const {verifyPermission, decodeToken, equalField} = libraryAuth
 const {LibraryRoles} = require("../../../library.io-libs/dist/roles");
@@ -17,12 +17,17 @@ router.get("/:id", [decodeToken, verifyPermission(LibraryRoles.ADMIN), equalFiel
     res.status(200).json({client})
 }))
 
+router.get("/:id/books", (async (req, res) => {
+    const books = await getClientBooks(req.params.id)
+    res.status(200).json({books})
+}))
+
 router.put("/:id", [decodeToken, verifyPermission(LibraryRoles.ADMIN), equalField("id")], (async (req, res) => {
     await updateClient(req.params.id, req.body)
     res.status(202).json({message: "success"})
 }))
 
-router.post("/:id/book/:bookId", [decodeToken, verifyPermission(LibraryRoles.ADMIN), equalField("id")], (async (req, res) => {
+router.post("/:id/book/:bookId", (async (req, res) => {
     await addBook(req.params.id, req.params.bookId)
     res.status(202).json({message: "success"})
 }))

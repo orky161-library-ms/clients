@@ -8,7 +8,8 @@ const updateClientQuery =  'UPDATE clients SET ' +
                            'WHERE id = (?)'
 const getClientsQuery = 'SELECT * FROM clients'
 const addBookQuery = 'INSERT INTO client_books (clientId, bookId) VALUES (?,?)'
-const removeBookQuery = 'DELETE FROM authors WHERE clientId = (?), bookId = (?),'
+const getClientBookQuery = 'SELECT bookId from client_books WHERE clientId = (?)'
+const removeBookQuery = 'DELETE FROM client_books WHERE clientId = (?) AND bookId = (?)'
 
 
 module.exports ={
@@ -18,5 +19,6 @@ module.exports ={
     updateClientQuery,
     getClientsQuery,
     addBookQuery,
-    removeBookQuery
+    removeBookQuery,
+    getClientBookQuery
 }

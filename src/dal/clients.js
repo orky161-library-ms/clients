@@ -1,5 +1,5 @@
 const {pool} = require('../config/index')
-const {addClientQuery, getClientByIdQuery, updateClientQuery, getClientsQuery, addBookQuery, removeBookQuery,checkConnectionQuery} = require("./query_builder/queries")
+const {addClientQuery, getClientByIdQuery, getClientBookQuery, updateClientQuery, getClientsQuery, addBookQuery, removeBookQuery, checkConnectionQuery} = require("./query_builder/queries")
 
 async function addClient({name, authId}) {
     const client = await pool.query(addClientQuery, [name, authId])
@@ -9,6 +9,11 @@ async function addClient({name, authId}) {
 async function getClientById(id) {
     const client = await pool.query(getClientByIdQuery, [id])
     return client[0][0]
+}
+
+async function getClientBooks(id) {
+    const books = await pool.query(getClientBookQuery, [id])
+    return books[0]
 }
 
 async function updateClient(id, {name}) {
@@ -39,5 +44,6 @@ module.exports = {
     getClients,
     addBook,
     removeBook,
-    checkConnection
+    checkConnection,
+    getClientBooks
 }
